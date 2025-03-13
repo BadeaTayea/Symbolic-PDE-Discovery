@@ -257,7 +257,7 @@ The quality and accuracy of the prediction is demonstrated by both quantitative 
   </table>
 </div>
 
-The scatter plot compares the true ($u_t$) (computed from the observed ($u(x,t)$)) with the reconstructed $u_t$ obtained from the identified PDE. Each point represents a measurement (a spatial–temporal location) where the x-coordinate is the true value and the y-coordinate is the predicted value. The red dashed line represents the "perfect fit" (i.e. (y=x)); if the model were perfect, all points would lie exactly on that line. Clustering of points near the line indicates that the model is accurately capturing the time derivative, whereas systematic deviations would signal discrepancies between the observed and reconstructed dynamics.
+The scatter plot compares the true ($u_t$) (computed from the observed $u(x,t)$) with the reconstructed $u_t$ obtained from the identified PDE. Each point represents a measurement (a spatial–temporal location) where the x-coordinate is the true value and the y-coordinate is the predicted value. The red dashed line represents the "perfect fit" (i.e. $y=x$); if the model were perfect, all points would lie exactly on that line. Clustering of points near the line indicates that the model is accurately capturing the time derivative, whereas systematic deviations would signal discrepancies between the observed and reconstructed dynamics.
 
 
 
