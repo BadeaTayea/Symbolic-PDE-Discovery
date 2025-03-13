@@ -286,7 +286,7 @@ $$
 u_t = -5.56656\, u\, u_x - 0.88657\, u_{xxx} - 0.10044\, u\, u_{xxx}
 $$
 
-Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to emerge from the **Korteweg–De Vries (KdV) equation**.
+Through visual inspection of the original solution, and from the form of the identified PDE, we could tell the system emerges from the **Korteweg–De Vries (KdV) equation**.
 
 The quality and accuracy of the prediction is demonstrated by both quantitative error metrics and qualitative visualizations.
 
@@ -361,7 +361,7 @@ v_t = -0.88544\, u
 $$
 ```
 
-Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to depict a **reaction-diffusion** process.
+Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the system to depict a **reaction-diffusion** process.
 
 As in PDE-1 and PDE-2 discovery, the quality and accuracy of the prediction is demonstrated by both quantitative error metrics and qualitative visualizations.
 
