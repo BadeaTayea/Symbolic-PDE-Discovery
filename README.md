@@ -7,7 +7,7 @@ u_t(x,t) = F\Bigl(u(x,t),\, u_x(x,t),\, u_{xx}(x,t),\, \ldots\Bigr)
 $$
 
 
-In this project, we intend to recover the governing, time-dependent PDE(s) of **three unknown systems** by constructing an overcomplete candidate library from the solution (observed measurements) and its derivatives, and then selecting the terms that are most informative about the dynamics of the system. The project here is in parallel to the work done by [3](#resources). 
+In this project, we intend to recover the governing, time-dependent PDE(s) of **three unknown systems** by constructing an overcomplete candidate library from the solution (observed measurements) and its derivatives, and then selecting the terms that are most informative about the dynamics of the system. The project here is in parallel to the work done by [[3]](#resources). 
 
 
 <div style="text-align: center;">
