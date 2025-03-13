@@ -1,4 +1,4 @@
-# PDE-FIND-Project
+# Symbolic Recovery of Governing PDE(s) from Data 
 
 Given a set of observed measurements of a dynamical system on a discretized spatiotemporal domain, how could we discover its underlying governing partial differential equation(s)?
 
