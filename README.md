@@ -6,6 +6,7 @@ $$
 u_t(x,t) = F\Bigl(u(x,t),\, u_x(x,t),\, u_{xx}(x,t),\, \ldots\Bigr)
 $$
 
+
 In this project, we intend to recover the governing, time-dependent PDE(s) of **three unknown systems** by constructing an overcomplete candidate library from the solution (observed measurements) and its derivatives, and then selecting the terms that are most informative about the dynamics of the system. The project here is in parallel to the work done by [3]. 
 
 
@@ -69,6 +70,7 @@ In this project, we intend to recover the governing, time-dependent PDE(s) of **
 
 Our goal is to identify the underlying partial differential equation (PDE) from measurement data. For a 1+1D system, where the solution $u(x,t)$ is measured on a discretized spatiotemporal domain $\tilde{\Omega}$ with $n$ spatial points and $m$ time points, we first arrange the data into a vector form. Specifically, the time derivative $u_t$ is discretized into a column vector
 
+```math
 $$
 \mathbf{U}_t \in \mathbb{R}^{(n\cdot m)\times 1} =
 \begin{bmatrix}
@@ -80,6 +82,7 @@ u_t(x_{n-1},t_m) \\
 u_t(x_{n},t_m)
 \end{bmatrix}.
 $$
+```
 
 At the same time, we construct a feature library (or candidate matrix) $\Theta$ that consists of the measured solution $u$ and its spatial (and possibly mixed) derivatives. For example, a typical candidate library might look like
 
@@ -183,20 +186,13 @@ $$
 
 with $\Xi \in \mathbb{R}^{D\times 2}$ and each column recovered separately by sparse regression. In both cases, the sparsity of the solution is crucial: it leads to an interpretable model in which each nonzero coefficient $\xi_j$ (or $\xi_j^{(u)}$ and $\xi_j^{(v)}$ in the coupled case) directly indicates an active term in the governing equation.
 
-
 ---
----
----
-
-
-   
-
 
 ## PDE-1 Discovery
 
 For a concise summary of the experimental settings and outcomes, the following table summarizes the key parameters—including the data dimensions, linear system setup, regression hyperparameters, regression outcomes, and PDE identification metrics. 
 
-<!-- <div align="center">
+<div align="center">
 
 | **Category**                  | **Specification (PDE-1)**                                                                                                                                               |
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -206,7 +202,7 @@ For a concise summary of the experimental settings and outcomes, the following t
 | **Regression Outcomes**       | $\Theta$ shape: $(25856,\,16)$, Predicted $u_t$ shape: $(25856,\,1)$                                                                                           |
 | **PDE Identification Metrics**| Avg Relative $L_2$ Error = $8.78\times10^{-3}$, MSE = $3.36\times10^{-7}$                                                                                        |
 
-</div> -->
+</div>
 
 The recovered PDE is:
 
@@ -214,7 +210,7 @@ $$
 u_t = -1.01491\, u\, u_x + 0.09949\, u_{xx}
 $$
 
-Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to emerge from Burgers’ equation.
+Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to emerge from **Burgers’ equation**.
 
 The quality and accuracy of the prediction is demonstrated by both quantitative error metrics and qualitative visualizations.
 
@@ -267,7 +263,7 @@ The scatter plot compares the true ($u_t$) (computed from the observed ($u(x,t)$
 
 We followed the same workflow for recovering PDE-2. For a concise summary of the experimental settings and outcomes, the following table summarizes the key parameters.
 
-<!-- 
+
 <div align="center">
 
 
@@ -279,7 +275,7 @@ We followed the same workflow for recovering PDE-2. For a concise summary of the
 | **Regression Outcomes**       | $\Theta$ shape: $(102912,\,8)$, Predicted $u_t$ shape: $(102912,\,1)$                                                                                          |
 | **PDE Identification Metrics**| Avg Relative $L_2$ Error = $5.45\times10^{-2}$, MSE = $6.89\times10^{-6}$                                                                                        |
 
-</div> -->
+</div>
 
 The recovered equation for PDE-2 is:
 
@@ -287,7 +283,7 @@ $$
 u_t = -5.56656\, u\, u_x - 0.88657\, u_{xxx} - 0.10044\, u\, u_{xxx}
 $$
 
-Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to emerge from the Korteweg–De Vries equation (KdV equation) equation.
+Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to emerge from the **Korteweg–De Vries (KdV) equation**.
 
 The quality and accuracy of the prediction is demonstrated by both quantitative error metrics and qualitative visualizations.
 
@@ -331,13 +327,12 @@ The quality and accuracy of the prediction is demonstrated by both quantitative 
 
 ## PDE-3 Discovery
 
-Due to the large dataset (≈13 million samples), we downsample before constructing the candidate matrix. By selecting every 4th point in each dimension, the sample count reduces by a factor of \(4^3=64\), lowering the total to roughly 205,000 samples. This speeds up regression while retaining key features.
+Due to the large dataset ($≈13$ million samples), we downsample before constructing the candidate matrix. By selecting every 4th point in each dimension, the sample count reduces by a factor of $4^3=64$, lowering the total to roughly $205,000$ samples. This speeds up regression while retaining key features.
 
-The `downsample_3d` function extracts every \(ds\_factor\)-th point, and new grid spacings (\(dx\), \(dy\), \(dt\)) are recalculated accordingly. The downsampled, optionally normalized, fields are then used in a modified `build_linear_system_2D` to generate a smaller candidate matrix \(\Theta\) and time derivative matrix \(U_t\). Sparse regression on this reduced system yields a coefficient matrix \(\Xi\), efficiently predicting the governing PDE. Although downsampling reduces resolution, it captures the overall dynamics when the system is sufficiently smooth.
+The `downsample_3d` function extracts every $ds_factor$-th point, and new grid spacings ($dx$), $dy$, $dt$) are recalculated accordingly. The downsampled, optionally normalized, fields are then used in a modified `build_linear_system_2D` to generate a smaller candidate matrix $\Theta$ and time derivative matrix $U_t$. Sparse regression on this reduced system yields a coefficient matrix $\Xi$, efficiently predicting the governing PDE. Although downsampling reduces resolution, it captures the overall dynamics when the system is sufficiently smooth.
 
 For a concise summary of the experimental settings and outcomes, the following table summarizes key parameters used.
 
-<!-- 
 <div align="center">
 
 
@@ -349,18 +344,21 @@ For a concise summary of the experimental settings and outcomes, the following t
 | **Regression Outcomes**       | $\Theta$ shape: $(208896,\,10)$, Predicted $(U_t,V_t)$ shape: $(208896,\,2)$                                                                                    |
 | **PDE Identification Metrics**| For $u_t$: Avg Relative $L_2$ Error = $1.50\times10^{-1}$, MSE = $8.06\times10^{-3}$; For $v_t$: Avg Relative $L_2$ Error = $1.51\times10^{-1}$, MSE = $8.11\times10^{-3}$ |
 
-</div> -->
+</div>
 
 The recovered coupled system of governing PDEs:
+```math
 $$
 u_t = 0.88532\, v
 $$
-
+```
+```math
 $$
 v_t = -0.88544\, u
 $$
+```
 
-Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to depict a reaction-diffusion process.
+Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to depict a **reaction-diffusion** process.
 
 As in PDE-1 and PDE-2 discovery, the quality and accuracy of the prediction is demonstrated by both quantitative error metrics and qualitative visualizations.
 
