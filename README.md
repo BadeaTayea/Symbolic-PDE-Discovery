@@ -57,12 +57,15 @@ In this project, we intend to recover the governing, time-dependent PDE(s) of **
 
 
 ## Contents
-1. General Framework for PDE Discovery
-2. Computing Derivatives
-3. Sparse Regression
-4. PDE-1 Discovery
-5. PDE-2 Discovery
-6. PDE-3 Discovery
+
+1. [General Framework for PDE Discovery](#general-framework-for-pde-discovery)
+2. [Computing Derivatives](#computing-derivatives)
+3. [Sparse Regression](#sparse-regression)
+4. [PDE-1 Discovery](#pde-1-discovery)
+5. [PDE-2 Discovery](#pde-2-discovery)
+6. [PDE-3 Discovery](#pde-3-discovery)
+7. [Resources](#resources)
+
 
 
 
