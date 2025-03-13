@@ -7,7 +7,7 @@ u_t(x,t) = F\Bigl(u(x,t),\, u_x(x,t),\, u_{xx}(x,t),\, \ldots\Bigr)
 $$
 
 
-In this project, we intend to recover the governing, time-dependent PDE(s) of **three unknown systems** by constructing an overcomplete candidate library from the solution (observed measurements) and its derivatives, and then selecting the terms that are most informative about the dynamics of the system. The project here is in parallel to the work done by [[3]](#resources). 
+In this project, we intend to recover the governing, time-dependent PDE(s) of **three unknown systems** by constructing an overcomplete candidate library from the solution (observed measurements) and its derivatives, and then selecting the terms that are most informative about the dynamics of the system. The project here is in parallel to the work done by [[3]](#resources), and was worked on as part of the course **"AI in the Sciences and Engineering"** at ETH Zürich.
 
 
 <div style="text-align: center;">
@@ -188,8 +188,6 @@ U_t = \Theta\,\Xi,
 $$
 
 with $\Xi \in \mathbb{R}^{D\times 2}$ and each column recovered separately by sparse regression. In both cases, the sparsity of the solution is crucial: it leads to an interpretable model in which each nonzero coefficient $\xi_j$ (or $\xi_j^{(u)}$ and $\xi_j^{(v)}$ in the coupled case) directly indicates an active term in the governing equation.
-
----
 
 ## PDE-1 Discovery
 
