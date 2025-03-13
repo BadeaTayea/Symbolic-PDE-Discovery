@@ -329,7 +329,7 @@ The quality and accuracy of the prediction is demonstrated by both quantitative 
 
 Due to the large dataset ($≈13$ million samples), we downsample before constructing the candidate matrix. By selecting every 4th point in each dimension, the sample count reduces by a factor of $4^3=64$, lowering the total to roughly $205,000$ samples. This speeds up regression while retaining key features.
 
-The `downsample_3d` function extracts every $ds_factor$-th point, and new grid spacings ($dx$), $dy$, $dt$) are recalculated accordingly. The downsampled, optionally normalized, fields are then used in a modified `build_linear_system_2D` to generate a smaller candidate matrix $\Theta$ and time derivative matrix $U_t$. Sparse regression on this reduced system yields a coefficient matrix $\Xi$, efficiently predicting the governing PDE. Although downsampling reduces resolution, it captures the overall dynamics when the system is sufficiently smooth.
+The `downsample_3d` function extracts every $dsfactor$-th point, and new grid spacings ($dx$), $dy$, $dt$) are recalculated accordingly. The downsampled, optionally normalized, fields are then used in a modified `build_linear_system_2D` to generate a smaller candidate matrix $\Theta$ and time derivative matrix $U_t$. Sparse regression on this reduced system yields a coefficient matrix $\Xi$, efficiently predicting the governing PDE. Although downsampling reduces resolution, it captures the overall dynamics when the system is sufficiently smooth.
 
 For a concise summary of the experimental settings and outcomes, the following table summarizes key parameters used.
 
