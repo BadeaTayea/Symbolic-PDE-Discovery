@@ -215,19 +215,10 @@ Through visual inspection of the original solution, and from the form of the ide
 
 The quality and accuracy of the prediction is demonstrated by both quantitative error metrics and qualitative visualizations.
 
+
 <div align="center">
-  <table style="margin: 0 auto;">
-    <tr>
-      <td align="center">
-        <img src="PDE-1/pde_1_ut_heatmap_comparison.png" alt="PDE-1 u_t Heatmap Comparison" style="width:600px;">
-      </td>
-    </tr>
-    <tr>
-      <td align="center" style="background-color: #f0f0f0; padding: 10px;">
-        <strong>Fig. 1:</strong> Heatmap comparison of \(u_t\) for PDE-1. The visual similarity confirms that the regression model closely approximates the observed dynamics.
-      </td>
-    </tr>
-  </table>
+<img src="PDE-1/pde_1_ut_heatmap_comparison.png" alt="PDE-1 u_t Heatmap Comparison" style="width:600px;">
+<p><b>Fig. 1:</b> Heatmap comparison of $u_t$ for PDE-1. The visual similarity confirms that the regression model closely approximates the observed dynamics.</p>
 </div>
 
 
