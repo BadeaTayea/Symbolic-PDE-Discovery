@@ -3,7 +3,7 @@
 Given a set of observed measurements of a dynamical system on a discretized spatiotemporal domain, how could we discover its underlying governing partial differential equation(s)?
 
 $$
-u_t(x,t) = F\Bigl(u(x,t),\, u_x(x,t),\, u_{xx}(x,t),\, \ldots\Bigr)
+u_t(x,t) = F\Bigl(u(x,t), u_x(x,t), u_{xx}(x,t), \ldots\Bigr)
 $$
 
 
@@ -92,12 +92,12 @@ At the same time, we construct a feature library (or candidate matrix) $\Theta$ 
 $$
 \Theta =
 \begin{bmatrix}
-1 & u(x_0,t_0) & u_x(x_0,t_0) & u(x_0,t_0)^2 & \cdots & u^3\,u_{xxx}(x_0,t_0) \\
-1 & u(x_1,t_0) & u_x(x_1,t_0) & u(x_1,t_0)^2 & \cdots & u^3\,u_{xxx}(x_1,t_0) \\
-1 & u(x_2,t_0) & u_x(x_2,t_0) & u(x_2,t_0)^2 & \cdots & u^3\,u_{xxx}(x_2,t_0) \\
+1 & u(x_0,t_0) & u_x(x_0,t_0) & u(x_0,t_0)^2 & \cdots & u^3u_{xxx}(x_0,t_0) \\
+1 & u(x_1,t_0) & u_x(x_1,t_0) & u(x_1,t_0)^2 & \cdots & u^3u_{xxx}(x_1,t_0) \\
+1 & u(x_2,t_0) & u_x(x_2,t_0) & u(x_2,t_0)^2 & \cdots & u^3u_{xxx}(x_2,t_0) \\
 \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
-1 & u(x_{n-1},t_m) & u_x(x_{n-1},t_m) & u(x_{n-1},t_m)^2 & \cdots & u^3\,u_{xxx}(x_{n-1},t_m) \\
-1 & u(x_{n},t_m)   & u_x(x_{n},t_m)   & u(x_{n},t_m)^2   & \cdots & u^3\,u_{xxx}(x_{n},t_m)
+1 & u(x_{n-1},t_m) & u_x(x_{n-1},t_m) & u(x_{n-1},t_m)^2 & \cdots & u^3u_{xxx}(x_{n-1},t_m) \\
+1 & u(x_{n},t_m)   & u_x(x_{n},t_m)   & u(x_{n},t_m)^2   & \cdots & u^3u_{xxx}(x_{n},t_m)
 \end{bmatrix} \in \mathbb{R}^{(n\cdot m)\times D},
 $$
 
@@ -106,13 +106,13 @@ where $D$ is the number of candidate functions. We assume that this library is o
 The PDE is then written in the linear regression form
 
 $$
-\mathbf{U}_t = \Theta\,\xi,
+\mathbf{U}_t = \Theta\xi,
 $$
 
 where $\xi \in \mathbb{R}^{D \times 1}$ is a coefficient vector. By applying a sparse regression method (such as Sequential Threshold Ridge Regression, STRidge), we solve for $\xi$. Each nonzero entry $\xi_j \neq 0$ indicates that the candidate term $\Theta_j$ plays a role in the governing PDE. The recovered equation is then
 
 $$
-u_t(x,t) = \sum_{j=1}^{D} \Theta_j(x,t)\,\xi_j.
+u_t(x,t) = \sum_{j=1}^{D} \Theta_j(x,t)\xi_j.
 $$
 
 For a coupled 2+1D system (File 3), the procedure is analogous but extended to two fields. The measurements for $u(x,y,t)$ and $v(x,y,t)$ are arranged such that
@@ -130,15 +130,15 @@ $$
 We use the same candidate library $\Theta \in \mathbb{R}^{(n\cdot m)\times D}$ constructed from $u$, $v$, and their spatial derivatives (e.g., $u_x, u_y, v_x, v_y$, etc.). The coupled system is then represented as
 
 $$
-\mathbf{U}_t = \Theta\,\Xi,
+\mathbf{U}_t = \Theta\Xi,
 $$
 
 where $\Xi \in \mathbb{R}^{D\times 2}$ is a coefficient matrix. The first column of $\Xi$ corresponds to the PDE for $u_t$ and the second column to $v_t$. Thus, we have
 
 $$
 \begin{aligned}
-u_t(x,y,t) &= \sum_{j=1}^{D} \Theta_j(x,y,t)\,\xi_j^{(u)}, \\
-v_t(x,y,t) &= \sum_{j=1}^{D} \Theta_j(x,y,t)\,\xi_j^{(v)}.
+u_t(x,y,t) &= \sum_{j=1}^{D} \Theta_j(x,y,t)\xi_j^{(u)}, \\
+v_t(x,y,t) &= \sum_{j=1}^{D} \Theta_j(x,y,t)\xi_j^{(v)}.
 \end{aligned}
 $$
 
@@ -151,7 +151,7 @@ In our approach, both low- and high-order derivatives from the solution $u(x,t)$
 The function ``TikhonovDiff`` is employed to compute derivatives via Tikhonov regularization. Specifically, it solves the minimization problem
 
 $$
-\min_{g}\,\|Ag - f\|_2^2 + \lambda \|Dg\|_2^2,
+\min_{g}\|Ag - f\|_2^2 + \lambda \|Dg\|_2^2,
 $$
 
 where $A$ approximates trapezoidal integration and $D$ represents a finite-difference operator. For $d>1$, the output of ``TikhonovDiff`` is further differentiated using the ``FiniteDiff`` function. The latter implements a second-order finite difference scheme; for instance, the first derivative is approximated as
@@ -171,20 +171,20 @@ Once the candidate library $\Theta \in \mathbb{R}^{(n\cdot m)\times D}$ is assem
 
 
 $$
-U_t = \Theta\,\xi.
+U_t = \Theta\xi.
 $$
 
 
 Because $\Theta$ is overdetermined (with $n\cdot m > D$), a standard least-squares solution would yield a dense vector $\xi$. However, we know from the underlying physics that the true PDE is parsimonious, so only a few terms are active. To promote sparsity in $\xi$, we solve the regularized problem
 
 $$
-\min_{\xi\in\mathbb{R}^{D}} \|U_t - \Theta\,\xi\|_2^2 + \lambda\,\|\xi\|_2^2,
+\min_{\xi\in\mathbb{R}^{D}} \|U_t - \Theta\xi\|_2^2 + \lambda\|\xi\|_2^2,
 $$
 
 and then apply a hard threshold, setting coefficients with $|\xi_j|$ below a certain tolerance to zero. This procedure—implemented via our STRidge and TrainSTRidge functions—ensures that the final coefficient vector is sparse, with nonzero entries corresponding to the relevant terms in the PDE. In the case of coupled systems, the formulation is extended to
 
 $$
-U_t = \Theta\,\Xi,
+U_t = \Theta\Xi,
 $$
 
 with $\Xi \in \mathbb{R}^{D\times 2}$ and each column recovered separately by sparse regression. In both cases, the sparsity of the solution is crucial: it leads to an interpretable model in which each nonzero coefficient $\xi_j$ (or $\xi_j^{(u)}$ and $\xi_j^{(v)}$ in the coupled case) directly indicates an active term in the governing equation.
@@ -200,7 +200,7 @@ For a concise summary of the experimental settings and outcomes, the following t
 | **Data Dimensions**           | ($x,t$) = $256 \times 101$                                                                                                                               |
 | **Linear System Setup**       | $D = 3$, $P = 3$, Library Size = $16$; Total Samples = $256 \times 101 = 25856$                                                                                |
 | **Regression Hyperparameters**| $\lambda = 1\times10^{-5}$, Tolerance = $1\times10^{-6}$, Iterations = $10$, Train Split = $80\%$, Optimal Tolerance = $2.5\times10^{-5}$          |
-| **Regression Outcomes**       | $\Theta$ shape: $(25856,\,16)$, Predicted $u_t$ shape: $(25856,\,1)$                                                                                           |
+| **Regression Outcomes**       | $\Theta$ shape: $(25856,16)$, Predicted $u_t$ shape: $(25856,1)$                                                                                           |
 | **PDE Identification Metrics**| Avg Relative $L_2$ Error = $8.78\times10^{-3}$, MSE = $3.36\times10^{-7}$                                                                                        |
 
 </div>
@@ -208,7 +208,7 @@ For a concise summary of the experimental settings and outcomes, the following t
 The recovered PDE is:
 
 $$
-u_t = -1.01491\, u\, u_x + 0.09949\, u_{xx}
+u_t = -1.01491 u u_x + 0.09949 u_{xx}
 $$
 
 Through visual inspection of the original solution, and from the form of the identified PDE, we could identify the first system to emerge from **Burgers’ equation**.
@@ -257,7 +257,7 @@ The quality and accuracy of the prediction is demonstrated by both quantitative 
   </table>
 </div>
 
-The scatter plot compares the true ($u_t$) (computed from the observed $u(x,t)$) with the reconstructed $u_t$ obtained from the identified PDE. Each point represents a measurement (a spatial–temporal location) where the x-coordinate is the true value and the y-coordinate is the predicted value. The red dashed line represents the "perfect fit" (i.e. $y=x$); if the model were perfect, all points would lie exactly on that line. Clustering of points near the line indicates that the model is accurately capturing the time derivative, whereas systematic deviations would signal discrepancies between the observed and reconstructed dynamics.
+The scatter plot compares the true $u_t$, computed from the observed $u(x,t)$, with the reconstructed $u_t$ obtained from the identified PDE. Each point represents a measurement (a spatial–temporal location) where the x-coordinate is the true value and the y-coordinate is the predicted value. The red dashed line represents the "perfect fit" (i.e. $y=x$); if the model were perfect, all points would lie exactly on that line. Clustering of points near the line indicates that the model is accurately capturing the time derivative, whereas systematic deviations would signal discrepancies between the observed and reconstructed dynamics.
 
 
 
@@ -275,7 +275,7 @@ We followed the same workflow for recovering PDE-2. For a concise summary of the
 | **Data Dimensions**           | ($x,t$) = $512 \times 201$                                                                                                                               |
 | **Linear System Setup**       | $D = 3$, $P = 1$, Library Size = $8$; Total Samples = $512 \times 201 = 102912$                                                                                 |
 | **Regression Hyperparameters**| $\lambda = 1\times10^{-5}$, Tolerance = $1\times10^{-4}$, Iterations = $10$, Train Split = $80\%$, Optimal Tolerance = $0$                         |
-| **Regression Outcomes**       | $\Theta$ shape: $(102912,\,8)$, Predicted $u_t$ shape: $(102912,\,1)$                                                                                          |
+| **Regression Outcomes**       | $\Theta$ shape: $(102912,8)$, Predicted $u_t$ shape: $(102912,1)$                                                                                          |
 | **PDE Identification Metrics**| Avg Relative $L_2$ Error = $5.45\times10^{-2}$, MSE = $6.89\times10^{-6}$                                                                                        |
 
 </div>
@@ -283,7 +283,7 @@ We followed the same workflow for recovering PDE-2. For a concise summary of the
 The recovered equation for PDE-2 is:
 
 $$
-u_t = -5.56656\, u\, u_x - 0.88657\, u_{xxx} - 0.10044\, u\, u_{xxx}
+u_t = -5.56656 u u_x - 0.88657 u_{xxx} - 0.10044 u u_{xxx}
 $$
 
 Through visual inspection of the original solution, and from the form of the identified PDE, we could tell the system emerges from the **Korteweg–De Vries (KdV) equation**.
@@ -344,7 +344,7 @@ For a concise summary of the experimental settings and outcomes, the following t
 | **Data Dimensions**           | ($x,y,t$) = $64 \times 64 \times 51$                                                                                                                     |
 | **Linear System Setup**       | $D = 3$, $P = 3$, Library Size = $10$; Total Samples = $64 \times 64 \times 51 = 208896$                                                                          |
 | **Regression Hyperparameters**| $\lambda = 1\times10^{-5}$, Tolerance = $1\times10^{-5}$, Iterations = $10$, Train Split = $80\%$                                                       |
-| **Regression Outcomes**       | $\Theta$ shape: $(208896,\,10)$, Predicted $(U_t,V_t)$ shape: $(208896,\,2)$                                                                                    |
+| **Regression Outcomes**       | $\Theta$ shape: $(208896,10)$, Predicted $(U_t,V_t)$ shape: $(208896,2)$                                                                                    |
 | **PDE Identification Metrics**| For $u_t$: Avg Relative $L_2$ Error = $1.50\times10^{-1}$, MSE = $8.06\times10^{-3}$; For $v_t$: Avg Relative $L_2$ Error = $1.51\times10^{-1}$, MSE = $8.11\times10^{-3}$ |
 
 </div>
@@ -352,12 +352,12 @@ For a concise summary of the experimental settings and outcomes, the following t
 The recovered coupled system of governing PDEs:
 ```math
 $$
-u_t = 0.88532\, v
+u_t = 0.88532 v
 $$
 ```
 ```math
 $$
-v_t = -0.88544\, u
+v_t = -0.88544 u
 $$
 ```
 
